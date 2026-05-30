@@ -16,6 +16,7 @@ gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
 gem "image_processing", "~> 1.2"
+gem "tailwindcss-rails", "~> 4.4"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -23,6 +24,7 @@ group :development, :test do
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
   gem "ruby-lsp", require: false
+  gem "pry"
 end
 
 group :development do
