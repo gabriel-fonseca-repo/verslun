@@ -3,6 +3,8 @@ name: spdd-analysis
 description: Analyze business requirements against codebase context at a strategic level, producing enriched context (business + domain concepts + strategic direction + risks) for REASONS Canvas generation
 ---
 
+# Structured-Prompt-Driven Development Command: Analysis
+
 Analyze a business requirement document against the current codebase, producing a **strategic-level** enriched context that combines business information, domain concept identification, high-level approach decisions, and risk analysis — serving as high-quality input for `/spdd-reasons-canvas`. This phase focuses on the "What" and "Why", leaving the "How" to the REASONS Canvas phase.
 
 **Input**: The argument after `/spdd-analysis` is a business requirement description or file reference.
@@ -14,7 +16,7 @@ Input can be provided in two ways:
 
 **Examples**:
 
-```
+```txt
 # File reference
 /spdd-analysis @requirements/token-usage-billing-story.md
 
@@ -25,7 +27,7 @@ Input can be provided in two ways:
 /spdd-analysis @requirements/billing-report.md additionally needs CSV export support
 ```
 
-**Steps**
+## Steps
 
 1. **Validate and consolidate business input**
 
@@ -112,7 +114,7 @@ Input can be provided in two ways:
 
    Output this section as:
 
-   ```
+   ```txt
    ### Domain Concept Identification
 
    #### Existing Concepts (from codebase)
@@ -132,7 +134,7 @@ Input can be provided in two ways:
    a. **Solution direction**:
    - What is the overall approach to solving this requirement?
    - Which existing architectural patterns and conventions should be leveraged?
-   - What is the general data flow direction (e.g., "REST endpoint → service-layer calculation → persist result")?
+   - What is the general data flow direction (e.g., "REST endpoint -> service-layer calculation -> persist result")?
 
    b. **Key design decisions**:
    - What strategic choices need to be made?
@@ -145,14 +147,14 @@ Input can be provided in two ways:
 
    Output this section as:
 
-   ```
+   ```txt
    ### Strategic Approach
 
    #### Solution Direction
    - [High-level description of approach]
 
    #### Key Design Decisions
-   - [Decision]: [trade-offs] → [recommendation and rationale]
+   - [Decision]: [trade-offs] -> [recommendation and rationale]
 
    #### Alternatives Considered
    - [Alternative]: [why rejected]
@@ -180,7 +182,7 @@ Input can be provided in two ways:
 
    Output this section as:
 
-   ```
+   ```txt
    ### Risk & Gap Analysis
 
    #### Requirement Ambiguities
@@ -195,7 +197,7 @@ Input can be provided in two ways:
    #### Acceptance Criteria Coverage
    | AC# | Description | Addressable? | Gaps/Notes |
    |-----|-------------|--------------|------------|
-   | [n] | [AC text]   | Yes/Partial  | [any gaps]  |
+   | [n] | [AC text]   | Yes/Partial  | [any gaps] |
    ```
 
 6. **Assemble the enriched context document**
@@ -247,7 +249,7 @@ Input can be provided in two ways:
 
    c. **Show summary to user**:
 
-   ```
+   ```txt
    ✅ Analysis complete. Enriched context saved to `spdd/analysis/<file-name>.md`
 
    📋 Analysis summary:
@@ -268,7 +270,7 @@ Input can be provided in two ways:
 
    If the user confirms, invoke the `/spdd-reasons-canvas` workflow with the saved analysis file as input.
 
-**Output**
+## Output
 
 An enriched context document saved to `spdd/analysis/<file-name>.md` that transforms raw business requirements into a **strategic-level** analysis containing:
 
@@ -277,7 +279,7 @@ An enriched context document saved to `spdd/analysis/<file-name>.md` that transf
 - Strategic approach (solution direction, key design decisions, trade-offs, alternatives considered)
 - Risk & gap analysis (ambiguities, edge cases, technical risks, AC coverage assessment)
 
-**Guardrails**
+## Guardrails
 
 - Do NOT proceed without business requirement input
 - Do NOT skip codebase exploration — analysis MUST be grounded in actual codebase state
@@ -305,53 +307,53 @@ An enriched context document saved to `spdd/analysis/<file-name>.md` that transf
 - **Combine all sources** — merge text descriptions with file contents into unified context
 - **Preserve original intent** — do not interpret or modify the meaning of provided context
 
-**Integration with SPDD Workflow**
+## Integration with SPDD Workflow
 
 This command is the **pre-processing phase** of the SPDD workflow, bridging raw business requirements to implementation-ready structured prompts:
 
-```
+```txt
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                           SPDD Workflow                                  │
+│                           SPDD Workflow                                 │
 ├─────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
+│                                                                         │
 │  Phase 0: /spdd-analysis                                                │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Business Requirement                                            │    │
-│  │   + Concept-driven Codebase Exploration (targeted, not full)    │    │
-│  │   + Domain Concept Identification (conceptual, not detailed)    │    │
-│  │   + Strategic Approach & Trade-offs (direction, not specifics)  │    │
-│  │   + Risk & Gap Analysis (ambiguities, edge cases, risks)        │    │
-│  │   = Enriched Context (Business + Strategic + Risks)             │    │
-│  │                                                                 │    │
-│  │ Output: spdd/analysis/GGQPA-XXX-*-[Analysis]-*.md              │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Business Requirement                                           │     │
+│  │   + Concept-driven Codebase Exploration (targeted, not full)   │     │
+│  │   + Domain Concept Identification (conceptual, not detailed)   │     │
+│  │   + Strategic Approach & Trade-offs (direction, not specifics) │     │
+│  │   + Risk & Gap Analysis (ambiguities, edge cases, risks)       │     │
+│  │   = Enriched Context (Business + Strategic + Risks)            │     │
+│  │                                                                │     │
+│  │ Output: spdd/analysis/GGQPA-XXX-*-[Analysis]-*.md              │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
-│  Phase 1: /spdd-reasons-canvas                                         │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Enriched Context → REASONS Canvas Structured Prompt             │    │
-│  │                                                                 │    │
-│  │ Output: spdd/prompt/GGQPA-XXX-*.md (REASONS Canvas)           │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│                              V                                          │
+│  Phase 1: /spdd-reasons-canvas                                          │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Enriched Context -> REASONS Canvas Structured Prompt           │     │
+│  │                                                                │     │
+│  │ Output: spdd/prompt/GGQPA-XXX-*.md (REASONS Canvas)            │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
-│  Phase 2: /spdd-generate                                               │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Structured Prompt → Validate → Generate → Verify → Code        │    │
-│  │                                                                 │    │
-│  │ Output: Implementation code following Operations sequence       │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│                              V                                          │
+│  Phase 2: /spdd-generate                                                │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Structured Prompt -> Validate -> Generate -> Verify -> Code    │     │
+│  │                                                                │     │
+│  │ Output: Implementation code following Operations sequence      │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
-│  Phase 3: /spdd-sync                                                   │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Code Changes → Analyze → Update Prompt → Consistency           │    │
-│  └────────────────────────────────────────────────────────────────┘    │
-│                                                                          │
+│                              V                                          │
+│  Phase 3: /spdd-sync                                                    │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Code Changes -> Analyze -> Update Prompt -> Consistency        │     │
+│  └────────────────────────────────────────────────────────────────┘     │
+│                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Why This Phase Matters**
+## Why This Phase Matters
 
 Raw business requirements describe **what** to build but lack the technical context needed to produce high-quality REASONS Canvas prompts. `/spdd-analysis` bridges this gap by:
 

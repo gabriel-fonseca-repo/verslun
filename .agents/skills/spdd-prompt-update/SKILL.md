@@ -3,13 +3,15 @@ name: spdd-prompt-update
 description: Update an existing SPDD prompt file with new requirements or architectural changes while preserving the REASONS Canvas structure
 ---
 
+# Structured-Prompt-Driven Development Command: Prompt Update
+
 Update an existing SPDD (Structured Prompt-Driven Development) prompt file with new requirements, architectural changes, or refinements while maintaining the REASONS Canvas structure and following all specification rules.
 
 **Input**: The argument after `/spdd-prompt-update` includes the prompt file reference and the update instructions.
 
 **Examples**:
 
-```
+```txt
 # Update with architectural principles
 /spdd-prompt-update @spdd/prompt/GGQPA-XXX-202603131758-[Feat]-api-token-usage-billing.md
 Add three-layer architecture with dependency inversion principle
@@ -23,7 +25,7 @@ Add support for batch usage submission
 Update Safeguards section to add rate limiting constraints
 ```
 
-**Steps**
+## Steps
 
 1. **Validate input**
 
@@ -66,9 +68,9 @@ Update Safeguards section to add rate limiting constraints
 4. **Read relevant codebase context (if needed)**
 
    If the update involves:
-   - New entities → Read existing entity classes
-   - New patterns → Read existing similar implementations
-   - New integrations → Read related services/repositories
+   - New entities -> Read existing entity classes
+   - New patterns -> Read existing similar implementations
+   - New integrations -> Read related services/repositories
 
 5. **Apply updates to affected sections**
 
@@ -103,7 +105,7 @@ Update Safeguards section to add rate limiting constraints
 
 8. **Show update summary**
 
-   ```
+   ```txt
    ✅ SPDD prompt updated: `spdd/prompt/<file-name>.md`
 
    📋 Changes made:
@@ -121,11 +123,11 @@ Update Safeguards section to add rate limiting constraints
 
    > "The SPDD prompt has been updated. Would you like me to regenerate the affected code using `/spdd-generate`?"
 
-**Output**
+## Output
 
 The updated SPDD prompt file with changes integrated while preserving the REASONS Canvas structure.
 
-**Guardrails**
+## Guardrails
 
 - **CRITICAL**: Do NOT rewrite the entire file - only modify sections that need changes
 - Do NOT proceed without both file path and update instructions
@@ -140,7 +142,7 @@ The updated SPDD prompt file with changes integrated while preserving the REASON
 
 The SPDD prompt file is a **specification document**, not source code. It describes WHAT to implement, leaving the HOW to the `/spdd-generate` phase.
 
-- **Do NOT include language-specific code blocks** (e.g., `java, `python, ```typescript)
+- **Do NOT include language-specific code blocks** (e.g., `java,`python, ```typescript)
 - **Do NOT include implementation code** - no class definitions, method bodies, SQL queries, or annotations in code form
 - **Use natural language** to describe:
   - Method signatures: "Method `findById(String id)` returns `Optional<Customer>`"
@@ -149,7 +151,7 @@ The SPDD prompt file is a **specification document**, not source code. It descri
 - **Allowed diagram blocks**: Mermaid diagrams for entity relationships are permitted (```mermaid)
 - **Describe, don't implement**:
   - ✅ "Adapter converts between PO and domain entity using `toDomain()` and `fromDomain()` methods"
-  - ❌ `java @Repository public class JpaCustomerRepositoryAdapter { ... } `
+  - ❌ `java @Repository public class JpaCustomerRepositoryAdapter { ... }`
 - **Specification vs Implementation boundary**:
   - SPDD prompt = specification (describes contracts, behaviors, constraints)
   - Generated code = implementation (actual source files created by `/spdd-generate`)
@@ -161,48 +163,48 @@ The SPDD prompt file is a **specification document**, not source code. It descri
 - **Backward compatibility**: Consider impact on any existing implementation
 - **Traceability**: Changes should be clearly identifiable in the updated sections
 
-**Integration with SPDD Workflow**
+## Integration with SPDD Workflow
 
 This command supports the iterative refinement cycle in SPDD:
 
-```
+```txt
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                    SPDD Prompt Lifecycle                                 │
+│                    SPDD Prompt Lifecycle                                │
 ├─────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
+│                                                                         │
 │  Create: /spdd-reasons-canvas                                           │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Business Context → REASONS Canvas → spdd/prompt/*.md            │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Business Context -> REASONS Canvas -> spdd/prompt/*.md         │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
-│  Update: /spdd-prompt-update  ◄────────────────────────┐               │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Existing Prompt + Change Request → Updated Prompt              │    │
-│  │                                                                 │    │
-│  │ Triggers:                                                       │    │
-│  │ - New requirements from stakeholders                           │    │
-│  │ - Architectural refinements                                    │    │
-│  │ - Bug fixes in specification                                   │    │
-│  │ - Constraint additions                                         │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│                              V                                          │
+│  Update: /spdd-prompt-update  <────────────────────────┐                │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Existing Prompt + Change Request -> Updated Prompt             │     │
+│  │                                                                │     │
+│  │ Triggers:                                                      │     │
+│  │ - New requirements from stakeholders                           │     │
+│  │ - Architectural refinements                                    │     │
+│  │ - Bug fixes in specification                                   │     │
+│  │ - Constraint additions                                         │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
+│                              V                                          │
 │  Generate: /spdd-generate                                               │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Structured Prompt → Implementation Code                         │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Structured Prompt -> Implementation Code                       │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
-│  Sync: /spdd-sync (if code changes first)                              │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Code Changes → Update Prompt → Maintain Consistency            │────┘
-│  └────────────────────────────────────────────────────────────────┘    │
-│                                                                          │
+│                              V                                          │
+│  Sync: /spdd-sync (if code changes first)                               │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Code Changes -> Update Prompt -> Maintain Consistency          │     │
+│  └────────────────────────────────────────────────────────────────┘     │
+│                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Common Update Scenarios**
+## Common Update Scenarios
 
 1. **Adding Architectural Principles**
    - Affects: Approach, Structure, Operations, Norms, Safeguards

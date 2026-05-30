@@ -3,11 +3,13 @@ name: spdd-sync
 description: Sync code changes back to the structured SPDD prompt file following the REASONS Canvas methodology
 ---
 
+# Structured-Prompt-Driven Development Command: Sync
+
 Synchronize implementation details from refactored or updated code back to the structured SPDD (Structured Prompt-Driven Development) prompt file, ensuring the prompt remains the accurate source of truth for the system design.
 
 **Input**: The argument after `/spdd-sync` is the path to the structured prompt file (e.g., `@spdd/prompt/GGQPA-XXX-202602271430-[Feat]-api-create-agent-endpoint.md`).
 
-**Steps**
+## Steps
 
 1. **If no input provided, ask for the prompt file**
 
@@ -76,7 +78,7 @@ Synchronize implementation details from refactored or updated code back to the s
 
    Create a detailed update plan showing:
 
-   ```
+   ```txt
    ## Prompt Sync Plan
 
    ### Entities Section Updates
@@ -168,7 +170,7 @@ Synchronize implementation details from refactored or updated code back to the s
    - Any manual review recommendations
    - Suggestions for further cleanup if needed
 
-**Sync Patterns & Best Practices**
+## Sync Patterns & Best Practices
 
 When syncing different types of changes:
 
@@ -205,14 +207,14 @@ When syncing different types of changes:
    - Update Safeguards constraints
    - Update expected error messages
 
-**Output**
+## Output
 
 - Updated structured prompt file with synced content
 - Summary of all changes made to each section
 - List of any inconsistencies found and resolved
 - Recommendations for manual review if needed
 
-**Guardrails**
+## Guardrails
 
 - Do NOT remove content from prompt without explicit user approval
 - Do NOT change Requirements section unless user explicitly requests (business goals shouldn't change from code refactoring)
@@ -224,48 +226,48 @@ When syncing different types of changes:
 - When in doubt, show the proposed change and ask user to confirm
 - Never change the prompt's unique identifier or metadata
 
-**Integration with SPDD Workflow**
+## Integration with SPDD Workflow
 
 This command completes the bidirectional sync in the SPDD workflow:
 
-```
+```txt
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                      SPDD Bidirectional Sync                            │
 ├─────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
-│  Forward Flow (Design → Code): /spdd-generate                          │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Structured Prompt → Validate → Generate → Verify → Code        │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│                                                                         │
+│  Forward Flow (Design -> Code): /spdd-generate                          │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Structured Prompt -> Validate -> Generate -> Verify -> Code    │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
 │                              │ Initial Implementation                   │
-│                              ▼                                          │
+│                              V                                          │
 │                    ┌─────────────────┐                                  │
-│                    │  Implementation  │                                  │
-│                    │     Codebase     │                                  │
+│                    │  Implementation │                                  │
+│                    │     Codebase    │                                  │
 │                    └─────────────────┘                                  │
 │                              │                                          │
 │                              │ Code Review / Refactoring                │
-│                              ▼                                          │
-│  Reverse Flow (Code → Design): /spdd-sync                              │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Analyze Changes → Compare → Plan Updates → Update Prompt       │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│                              V                                          │
+│  Reverse Flow (Code -> Design): /spdd-sync                              │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Analyze Changes -> Compare -> Plan Updates -> Update Prompt    │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │              Prompt-Code Consistency Maintained                 │    │
-│  │                                                                 │    │
-│  │  - Prompt remains source of truth                              │    │
-│  │  - Code changes are documented in prompt                       │    │
-│  │  - Future generations use updated specifications               │    │
-│  │  - Team alignment on actual vs planned implementation          │    │
-│  └────────────────────────────────────────────────────────────────┘    │
-│                                                                          │
+│                              V                                          │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │              Prompt-Code Consistency Maintained                │     │
+│  │                                                                │     │
+│  │  - Prompt remains source of truth                              │     │
+│  │  - Code changes are documented in prompt                       │     │
+│  │  - Future generations use updated specifications               │     │
+│  │  - Team alignment on actual vs planned implementation          │     │
+│  └────────────────────────────────────────────────────────────────┘     │
+│                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-**When to Use /spdd-sync**
+## When to Use /spdd-sync
 
 Use this command when:
 

@@ -3,6 +3,8 @@ name: spdd-reasons-canvas
 description: Generate REASONS-Canvas structured prompts from business context without external template
 ---
 
+# Structured-Prompt-Driven Development Command: Reasons-Canvas
+
 Generate implementation-ready structured prompts using the built-in REASONS-Canvas framework (Requirements, Entities, Approach, Structure, Operations, Norms, Safeguards).
 
 **Input**: Business context/requirement description after `/spdd-reasons-canvas`
@@ -14,7 +16,7 @@ Input can be provided in two ways:
 
 **Examples**:
 
-```
+```txt
 # Text description
 /spdd-reasons-canvas Implement user registration functionality, supporting email verification and mobile phone binding
 
@@ -28,7 +30,7 @@ Input can be provided in two ways:
 /spdd-reasons-canvas @requirements/user-registration.md @docs/api-spec.yaml
 ```
 
-**Steps**
+## Steps
 
 1. **Validate and consolidate business context**
 
@@ -70,7 +72,7 @@ Input can be provided in two ways:
 
    **Output Format**:
 
-   ```
+   ```txt
    ## Requirements
    [Use concise verb phrases to describe the essence of requirements]
    ```
@@ -95,7 +97,7 @@ Input can be provided in two ways:
 
    **Output Format**:
 
-   ````
+   ````txt
    ## Entities
    ```mermaid
    classDiagram
@@ -129,7 +131,7 @@ Input can be provided in two ways:
    - **Attribute Modeling**: Define key attributes using "type+name" format
    - **Relationship Modeling**: Clarify relationship types (1:1, 1:N, N:M) and business semantics
    - **Interface Design**: Include key methods and static factory methods
-   - **Data Flow**: Reflect complete flow of request→processing→response
+   - **Data Flow**: Reflect complete flow of request->processing->response
 
    **Conservative Constraints** (CRITICAL):
    - **Prohibit Unnecessary Refactoring**: If existing simple data types (like `List<String>`) can meet requirements, strictly prohibit creating complex entity wrappers
@@ -152,7 +154,7 @@ Input can be provided in two ways:
 
    **Output Format**:
 
-   ```
+   ```txt
    ## Approach
    1. [Solution Category]:
       - [High-level strategy description]
@@ -191,7 +193,7 @@ Input can be provided in two ways:
 
    **Output Format**:
 
-   ```
+   ```txt
    ## Structure
 
    ### Inheritance Relationships
@@ -216,7 +218,7 @@ Input can be provided in two ways:
    **Construction Guidance**:
    - **Inheritance System**: Clarify inheritance relationships of interfaces, abstract classes, and implementation classes
    - **Dependency Chain**: Define call and dependency relationships between components
-   - **Layered Design**: Reflect clear layered architecture (Controller → Service → Repository → DAO)
+   - **Layered Design**: Reflect clear layered architecture (Controller -> Service -> Repository -> DAO)
    - **Responsibility Separation**: Responsibility boundaries and interaction interfaces of each layer
    - **Extension Interfaces**: Interfaces and extension points for future functionality expansion
 
@@ -233,7 +235,7 @@ Input can be provided in two ways:
 
    **Output Format**:
 
-   ```
+   ```txt
    ## Operations
 
    ### Create/Update [ComponentType] - [ComponentName]
@@ -302,7 +304,7 @@ Input can be provided in two ways:
 
    **Output Format**:
 
-   ```
+   ```txt
    ## Norms
    1. Annotation Standards: [Specific annotation requirements for different component types]
    2. Dependency Injection: [Dependency injection patterns and best practices]
@@ -340,7 +342,7 @@ Input can be provided in two ways:
 
    **Output Format**:
 
-   ```
+   ```txt
    ## Safeguards
    1. Functional Constraints: [Functional requirements and limitations with specific criteria]
    2. Performance Constraints: [Performance requirements with measurable metrics]
@@ -375,7 +377,7 @@ Input can be provided in two ways:
 
    a. **Header Section**:
 
-   ```
+   ```txt
    # [Derived Requirement Title]
    ```
 
@@ -420,7 +422,7 @@ Input can be provided in two ways:
 
    c. **Show summary to user**:
 
-   ```
+   ```txt
    ✅ REASONS-Canvas prompt generated and saved to `spdd/prompt/<file-name>.md`
 
    📋 Generated sections:
@@ -437,11 +439,11 @@ Input can be provided in two ways:
 
    > "The REASONS-Canvas structured prompt is ready. Would you like me to proceed with the implementation?"
 
-**Output**
+## Output
 
 A fully-populated, implementation-ready REASONS-Canvas structured prompt saved to `spdd/prompt/<file-name>.md`, then implementation upon user confirmation.
 
-**Guardrails**
+## Guardrails
 
 - **CRITICAL**: Do NOT just output section headers - you MUST analyze business context and generate fully-populated content for all 7 REASONS stages
 - Do NOT proceed without business context input

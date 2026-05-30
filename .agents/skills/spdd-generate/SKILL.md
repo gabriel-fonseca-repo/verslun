@@ -3,11 +3,13 @@ name: spdd-generate
 description: Generate code from a structured SPDD prompt file following the REASONS Canvas methodology
 ---
 
+# Structured-Prompt-Driven Development Command: Generate
+
 Generate implementation code from a structured SPDD (Structured Prompt-Driven Development) prompt file, strictly following the Operations sequence and coding norms defined in the prompt.
 
 **Input**: The argument after `/spdd-generate` is the path to the structured prompt file (e.g., `@spdd/prompt/GGQPA-XXX-202602271430-[Feat]-api-create-agent-endpoint.md`).
 
-**Steps**
+## Steps
 
 1. **If no input provided, ask for the prompt file**
 
@@ -134,7 +136,7 @@ Generate implementation code from a structured SPDD (Structured Prompt-Driven De
    - Any deviations or assumptions made
    - Validation results (pass/fail for each check)
 
-**Review & Iteration Loop**
+## Review & Iteration Loop
 
 If issues are discovered after generation (during testing or code review), follow the SPDD principle:
 
@@ -143,13 +145,13 @@ If issues are discovered after generation (during testing or code review), follo
 1. **Identify the issue**: What behavior is incorrect or missing?
 
 2. **Trace to prompt section**: Which part of the prompt caused this?
-   - Wrong requirement interpretation → Update **Requirements**
-   - Missing entity/relationship → Update **Entities**
-   - Flawed strategy → Update **Approach**
-   - Incorrect component design → Update **Structure**
-   - Wrong implementation detail → Update **Operations**
-   - Missing standard → Update **Norms**
-   - Missing constraint → Update **Safeguards**
+   - Wrong requirement interpretation -> Update **Requirements**
+   - Missing entity/relationship -> Update **Entities**
+   - Flawed strategy -> Update **Approach**
+   - Incorrect component design -> Update **Structure**
+   - Wrong implementation detail -> Update **Operations**
+   - Missing standard -> Update **Norms**
+   - Missing constraint -> Update **Safeguards**
 
 3. **Update the prompt first**: Modify the relevant section in the prompt file
 
@@ -159,7 +161,7 @@ If issues are discovered after generation (during testing or code review), follo
 
 **Example iteration**:
 
-```
+```txt
 Issue: "AgentService interface shouldn't contain business logic"
 
 1. Trace: Operations section defines AgentService with logic
@@ -168,14 +170,14 @@ Issue: "AgentService interface shouldn't contain business logic"
 4. Commit: Commit prompt change + code change together
 ```
 
-**Output**
+## Output
 
 - All generated source files following the project structure
 - Summary of created files and their responsibilities
 - Validation results
 - Any issues requiring prompt modification
 
-**Guardrails**
+## Guardrails
 
 - Do NOT generate code without first reading the entire prompt file
 - Do NOT re-plan the Operations sequence — execute in the defined order
@@ -189,38 +191,38 @@ Issue: "AgentService interface shouldn't contain business logic"
 - Always check for and fix linter errors after batch generation
 - Always commit prompt and code changes together
 
-**Integration with /spdd-context**
+## Integration with /spdd-context
 
 This command is the second phase of the SPDD workflow:
 
-```
+```txt
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                           SPDD Workflow                                  │
+│                           SPDD Workflow                                 │
 ├─────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
-│  Phase 1: /spdd-context                                                │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Requirement → Alignment → Abstraction → Structured Prompt      │    │
-│  │                                                                 │    │
-│  │ Output: spdd/prompt/GGQPA-XXX-*.md (REASONS Canvas)           │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│                                                                         │
+│  Phase 1: /spdd-context                                                 │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Requirement -> Alignment -> Abstraction -> Structured Prompt   │     │
+│  │                                                                │     │
+│  │ Output: spdd/prompt/GGQPA-XXX-*.md (REASONS Canvas)            │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
-│  Phase 2: /spdd-generate                                               │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Structured Prompt → Validate → Generate → Verify → Code        │    │
-│  │                                                                 │    │
-│  │ Output: Implementation code following Operations sequence       │    │
-│  └────────────────────────────────────────────────────────────────┘    │
+│                              V                                          │
+│  Phase 2: /spdd-generate                                                │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Structured Prompt -> Validate -> Generate -> Verify -> Code    │     │
+│  │                                                                │     │
+│  │ Output: Implementation code following Operations sequence      │     │
+│  └────────────────────────────────────────────────────────────────┘     │
 │                              │                                          │
-│                              ▼                                          │
+│                              V                                          │
 │  Phase 3: Review & Iteration                                            │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │ Issue Found → Update Prompt → Regenerate → Commit Together     │    │
-│  │                                                                 │    │
-│  │ Principle: "Fix prompt first, then update code"                │    │
-│  └────────────────────────────────────────────────────────────────┘    │
-│                                                                          │
+│  ┌────────────────────────────────────────────────────────────────┐     │
+│  │ Issue Found -> Update Prompt -> Regenerate -> Commit Together  │     │
+│  │                                                                │     │
+│  │ Principle: "Fix prompt first, then update code"                │     │
+│  └────────────────────────────────────────────────────────────────┘     │
+│                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
