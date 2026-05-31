@@ -7,41 +7,28 @@
 ## Table of Contents
 
 - [About the Project](#about-the-project)
-- [Learning Goals](#learning-goals)
 - [Tech Stack](#tech-stack)
-- [Architecture Overview](#architecture-overview)
+- [Project Structure](#project-structure)
 - [Development Setup Guide](#development-setup-guide)
   - [Prerequisites Summary](#prerequisites-summary)
-  - [Step 1 — Enable WSL2 (Windows Only)](#step-1--enable-wsl2-windows-only)
-  - [Step 2 — Install System Dependencies](#step-2--install-system-dependencies)
-  - [Step 3 — Install rbenv & Ruby](#step-3--install-rbenv--ruby)
-  - [Step 4 — Install Rails](#step-4--install-rails)
-  - [Step 5 — Install Docker](#step-5--install-docker)
-  - [Step 6 — Install Node.js (Optional)](#step-6--install-nodejs-optional)
-  - [All Platforms — Docker Services](#all-platforms--docker-services)
-  - [All Platforms — Project Bootstrap](#all-platforms--project-bootstrap)
+  - [Step 1 - Enable WSL2 (Windows Only)](#step-1---enable-wsl2-windows-only)
+  - [Step 2 - Install System Dependencies](#step-2---install-system-dependencies)
+  - [Step 3 - Install rbenv & Ruby](#step-3---install-rbenv--ruby)
+  - [Step 4 - Install Rails](#step-4---install-rails)
+  - [Step 5 - Install Docker](#step-5---install-docker)
+  - [Step 6 - Install Node.js (Optional)](#step-6---install-nodejs-optional)
+  - [All Platforms - Docker Services](#all-platforms---docker-services)
+  - [All Platforms - Project Bootstrap](#all-platforms---project-bootstrap)
 - [Running the Application](#running-the-application)
 - [Running Tests & CI](#running-tests--ci)
-- [Project Structure](#project-structure)
-- [License](#license)
 
 ---
 
 ## About the Project
 
-Verslun is currently in its **early stages** — a barebones Rails 8.1 scaffold with the infrastructure skeleton already in place. The goal is to incrementally build a real-world e-commerce product, feature by feature, while deliberately practicing modern software craftsmanship techniques.
+The goal of this project is to incrementally build a real-world e-commerce product, feature by feature, while deliberately practicing modern software craftsmanship techniques.
 
-This is **not** a throwaway tutorial app. It's designed to simulate building a production product from scratch — complete with proper architecture, CI, deployment configuration (Kamal), and domain modeling — while remaining a safe sandbox for learning.
-
-## Learning Goals
-
-| Area | What's Being Practiced |
-| --- | --- |
-| **Ruby & Rails** | Idiomatic Ruby (POODR principles), Rails 8.1 conventions, Hotwire/Turbo/Stimulus, Solid Queue/Cache/Cable |
-| **Agentic Coding** | Structured-Prompt-Driven Development ([Open-SPDD](https://github.com/open-spdd)) with REASONS Canvas methodology |
-| **Docker** | Containerized development services (PostgreSQL, Redis), production Dockerfiles, Docker Compose workflows |
-| **Domain-Driven Design** | Bounded Contexts, Aggregates, Value Objects, Domain Events, Ubiquitous Language |
-| **Business & Product** | End-to-end product thinking — from domain modeling to deployment — for a real-world commerce platform |
+This isn't a throwaway tutorial app. Its purpose is to simulate building a production product from scratch, complete with proper architecture, CI, deployment configuration (Kamal), and domain modeling, while remaining a safe sandbox for learning.
 
 ## Tech Stack
 
@@ -61,7 +48,7 @@ This is **not** a throwaway tutorial app. It's designed to simulate building a p
 
 ---
 
-## Architecture Overview
+## Project Structure
 
 ```txt
 verslun/
@@ -86,11 +73,23 @@ verslun/
 └── docs/                # Additional documentation
 ```
 
+| Directory / File | Purpose |
+| --- | --- |
+| `.agents/rules/` | Agent coding rules (DDD, POODR, component architecture, Tailwind-first) |
+| `.agents/skills/` | SPDD skills (analysis, canvas generation, code generation, sync) |
+| `app/` | Standard Rails MVC - controllers, models, views, assets, JavaScript |
+| `config/` | Rails configuration, database, deployment (Kamal), queue, cache, cable |
+| `db/` | Database schemas (primary, cache, queue, cable) and seeds |
+| `docs/` | Supplementary documentation |
+| `docker-compose.yml` | Development services: PostgreSQL 17 + Redis 7 |
+| `Dockerfile` | Multi-stage production image (Kamal-ready) |
+| `.env` / `.env.example` | Environment variables for Docker services and Rails |
+
 ---
 
 ## Development Setup Guide
 
-This guide walks you through setting up Verslun for development **from a clean OS install**. Each step has OS-specific instructions where needed — pick the subheading for your platform, then follow the shared Docker and project bootstrap steps at the end.
+This guide walks you through setting up Verslun for development **from a clean OS install**. Each step has OS-specific instructions where needed - pick the subheading for your platform, then follow the shared Docker and project bootstrap steps at the end.
 
 ### Prerequisites Summary
 
@@ -105,7 +104,7 @@ This guide walks you through setting up Verslun for development **from a clean O
 
 ---
 
-### Step 1 — Enable WSL2 (Windows Only)
+### Step 1 - Enable WSL2 (Windows Only)
 
 > **Rails development on Windows requires WSL2.** Native Windows is not supported. All subsequent commands run inside your WSL2 Ubuntu terminal.
 
@@ -117,11 +116,11 @@ wsl --install -d Ubuntu
 
 Restart your machine if prompted. After reboot, the Ubuntu terminal will open and ask you to create a UNIX username and password.
 
-From this point forward, **all commands run inside the WSL2 Ubuntu terminal** (which behaves like Ubuntu — follow the Ubuntu instructions below).
+From this point forward, **all commands run inside the WSL2 Ubuntu terminal** (which behaves like Ubuntu - follow the Ubuntu instructions below).
 
 ---
 
-### Step 2 — Install System Dependencies
+### Step 2 - Install System Dependencies
 
 #### Ubuntu / Windows (WSL2)
 
@@ -145,7 +144,7 @@ sudo dnf install -y git-core gcc gcc-c++ make autoconf automake bison \
 
 ---
 
-### Step 3 — Install rbenv & Ruby
+### Step 3 - Install rbenv & Ruby
 
 These commands are the same across all platforms.
 
@@ -170,7 +169,7 @@ ruby -v   # -> ruby 4.0.5
 
 ---
 
-### Step 4 — Install Rails
+### Step 4 - Install Rails
 
 ```bash
 gem install rails -v 8.1.3
@@ -180,7 +179,7 @@ rails -v  # -> Rails 8.1.3
 
 ---
 
-### Step 5 — Install Docker
+### Step 5 - Install Docker
 
 #### Windows (WSL2)
 
@@ -242,7 +241,7 @@ docker compose version    # -> Docker Compose version v2.x
 
 ---
 
-### Step 6 — Install Node.js (Optional)
+### Step 6 - Install Node.js (Optional)
 
 These commands are the same across all platforms.
 
@@ -262,7 +261,7 @@ corepack prepare pnpm@11.5.0 --activate
 
 ---
 
-### All Platforms — Docker Services
+### All Platforms - Docker Services
 
 These steps are the same on every OS (including WSL2).
 
@@ -305,7 +304,7 @@ If this returns `1`, PostgreSQL is ready.
 
 ---
 
-### All Platforms — Project Bootstrap
+### All Platforms - Project Bootstrap
 
 #### 1. Install Ruby Dependencies
 
@@ -376,23 +375,3 @@ bin/bundler-audit         # Gem vulnerability audit
 ```
 
 ---
-
-## Project Structure
-
-| Directory / File | Purpose |
-| --- | --- |
-| `.agents/rules/` | Agent coding rules (DDD, POODR, component architecture, Tailwind-first) |
-| `.agents/skills/` | SPDD skills (analysis, canvas generation, code generation, sync) |
-| `app/` | Standard Rails MVC — controllers, models, views, assets, JavaScript |
-| `config/` | Rails configuration, database, deployment (Kamal), queue, cache, cable |
-| `db/` | Database schemas (primary, cache, queue, cable) and seeds |
-| `docs/` | Supplementary documentation |
-| `docker-compose.yml` | Development services: PostgreSQL 17 + Redis 7 |
-| `Dockerfile` | Multi-stage production image (Kamal-ready) |
-| `.env` / `.env.example` | Environment variables for Docker services and Rails |
-
----
-
-## License
-
-This project is a personal learning exercise. No license has been specified yet.
