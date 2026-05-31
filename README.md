@@ -8,7 +8,6 @@
 
 - [About the Project](#about-the-project)
 - [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
 - [Development Setup Guide](#development-setup-guide)
   - [Prerequisites Summary](#prerequisites-summary)
   - [Step 1 - Enable WSL2 (Windows Only)](#step-1---enable-wsl2-windows-only)
@@ -45,45 +44,6 @@ This isn't a throwaway tutorial app. Its purpose is to simulate building a produ
 | CI | GitHub Actions |
 | Linting | RuboCop (Rails Omakase), Brakeman, Bundler Audit |
 | Package Manager | pnpm 11 (for JS tooling) |
-
----
-
-## Project Structure
-
-```txt
-verslun/
-├── .agents/             # SPDD skills & agent rules for agentic coding
-│   ├── rules/           # DDD, POODR, component, styling, and logic rules
-│   └── skills/          # spdd-analysis, spdd-generate, spdd-reasons-canvas, etc.
-├── app/
-│   ├── assets/          # Tailwind CSS, images, builds
-│   ├── controllers/     # Thin controllers (ApplicationController only for now)
-│   ├── javascript/      # Stimulus controllers + application.js
-│   ├── models/          # Domain models (ApplicationRecord base)
-│   └── views/           # ERB templates + layouts
-├── config/
-│   ├── database.yml     # PostgreSQL config (reads from .env)
-│   ├── deploy.yml       # Kamal deployment configuration
-│   ├── cable.yml        # ActionCable (async dev / Solid Cable prod)
-│   ├── cache.yml        # Solid Cache configuration
-│   └── queue.yml        # Solid Queue configuration
-├── docker-compose.yml   # PostgreSQL 17 + Redis 7 for development
-├── Dockerfile           # Multi-stage production image
-├── Procfile.dev         # Foreman: Rails server + Tailwind watcher
-└── docs/                # Additional documentation
-```
-
-| Directory / File | Purpose |
-| --- | --- |
-| `.agents/rules/` | Agent coding rules (DDD, POODR, component architecture, Tailwind-first) |
-| `.agents/skills/` | SPDD skills (analysis, canvas generation, code generation, sync) |
-| `app/` | Standard Rails MVC - controllers, models, views, assets, JavaScript |
-| `config/` | Rails configuration, database, deployment (Kamal), queue, cache, cable |
-| `db/` | Database schemas (primary, cache, queue, cable) and seeds |
-| `docs/` | Supplementary documentation |
-| `docker-compose.yml` | Development services: PostgreSQL 17 + Redis 7 |
-| `Dockerfile` | Multi-stage production image (Kamal-ready) |
-| `.env` / `.env.example` | Environment variables for Docker services and Rails |
 
 ---
 
